@@ -1,2 +1,3 @@
 # aoc
-My advent of code
+
+Personal Advent of Code playground
