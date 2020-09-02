@@ -1,22 +1,25 @@
-package main
+package aoc
 
 import (
 	"fmt"
+	"io/ioutil"
 	"math"
+	"strconv"
+	"strings"
 )
 
-func main() {
-	total := 0
-	for _, v := range getInput() {
-		total += calc(v)
+func day1(filename string) (int, int) {
+	p1 := 0
+	for _, v := range getInput(filename) {
+		p1 += calc(v)
 	}
-	fmt.Printf("Part 1:%d\n", total)
 
-	total = 0
-	for _, v := range getInput() {
-		total += getMine(v)
+	p2 := 0
+	for _, v := range getInput(filename) {
+		p2 += getMine(v)
 	}
-	fmt.Printf("Part 2:%d\n", total)
+
+	return p1, p2
 }
 
 func getMine(input int) int {
@@ -33,107 +36,20 @@ func calc(input int) int {
 	return int(math.Floor(float64(input)/3) - 2)
 }
 
-func getInput() []int {
-	return []int{
-		50572,
-		126330,
-		143503,
-		136703,
-		56987,
-		96737,
-		140243,
-		94427,
-		84262,
-		149323,
-		87398,
-		132344,
-		72187,
-		90878,
-		72897,
-		101305,
-		129483,
-		101148,
-		66349,
-		76719,
-		86437,
-		84937,
-		73911,
-		141051,
-		61464,
-		85350,
-		81774,
-		129191,
-		130129,
-		118366,
-		125825,
-		61781,
-		98459,
-		69024,
-		75886,
-		119434,
-		108929,
-		117387,
-		149625,
-		79378,
-		102582,
-		102368,
-		117177,
-		132105,
-		137278,
-		149187,
-		136653,
-		70074,
-		115885,
-		73901,
-		81922,
-		133232,
-		112929,
-		80009,
-		116895,
-		61248,
-		140251,
-		98003,
-		109610,
-		132775,
-		55781,
-		110809,
-		109799,
-		125071,
-		71734,
-		104973,
-		75610,
-		148974,
-		144173,
-		89235,
-		89438,
-		64901,
-		142674,
-		105446,
-		55287,
-		64438,
-		82269,
-		99903,
-		97079,
-		72708,
-		108177,
-		130830,
-		50393,
-		141354,
-		123264,
-		116302,
-		51119,
-		127287,
-		137515,
-		109285,
-		110750,
-		93770,
-		54926,
-		57131,
-		136897,
-		97693,
-		135531,
-		122858,
-		112089,
-		98599,
+func getInput(filename string) []int {
+	// Get file contents
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		panic(fmt.Sprintf("Error reading file:%s", filename))
 	}
+
+	// Convert to int slice
+	s := string(b)
+	split := strings.Split(strings.TrimSuffix(s, "\n"), "\n")
+	var result []int
+	for _, v := range split {
+		asInt, _ := strconv.Atoi(v)
+		result = append(result, asInt)
+	}
+	return result
 }

@@ -1,4 +1,4 @@
-package main
+package aoc
 
 import "testing"
 
@@ -20,5 +20,17 @@ func TestGetMine(t *testing.T) {
 	}
 	if getMine(100756) != 50346 {
 		t.Error()
+	}
+}
+
+func Test1(t *testing.T) {
+	one, two := day1("testdata/1.txt")
+	e := 3412531
+	if one != e {
+		t.Errorf("e:%d, one:%d", e, one)
+	}
+	e = 5115927
+	if two != e {
+		t.Errorf("e:%d, two:%d", e, two)
 	}
 }
