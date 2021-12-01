@@ -1,4 +1,4 @@
-package aoc
+package aoc2019
 
 import (
 	"fmt"
