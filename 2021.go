@@ -91,6 +91,51 @@ func do20213(lines []string) {
 	gamma := bin2dec(gammaString)
 	eps := bin2dec(epsString)
 	fmt.Println(gamma * eps)
+
+	// 2
+	fmt.Println(do20213b(lines))
+}
+
+func do20213b(lines []string) int {
+	ogr := lines
+	co := lines
+	for i := 0; i < len(lines[0]); i++ {
+		ogr = keepCommon(ogr, i, true)
+		co = keepCommon(co, i, false)
+	}
+	return bin2dec(ogr[0]) * bin2dec(co[0])
+}
+
+func keepCommon(lines []string, index int, isMost bool) []string {
+	if len(lines) <= 1 {
+		return lines
+	}
+	var zeroes int
+	var ones int
+	for _, line := range lines {
+		if line[index] == '0' {
+			zeroes++
+		} else {
+			ones++
+		}
+	}
+
+	var result []string
+	for _, line := range lines {
+		if zeroes > ones {
+			if (isMost && line[index] == '0') || (!isMost && line[index] == '1') {
+				result = append(result, line)
+			}
+		} else if ones > zeroes {
+			if (isMost && line[index] == '1') || (!isMost && line[index] == '0') {
+				result = append(result, line)
+			}
+		} else if (isMost && line[index] == '1') || (!isMost && line[index] == '0') {
+			result = append(result, line)
+		}
+	}
+
+	return result
 }
 
 func bin2dec(bin string) int {
