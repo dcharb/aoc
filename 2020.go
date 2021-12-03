@@ -9,18 +9,6 @@ import (
 	"strings"
 )
 
-func toInts(nums []string) []int {
-	var ints []int
-	for _, num := range nums {
-		i, err := strconv.Atoi(num)
-		if err != nil {
-			log.Panic(err)
-		}
-		ints = append(ints, i)
-	}
-	return ints
-}
-
 func do20201(lines []string) {
 	result, err := do1a(toInts(lines))
 	if err != nil {

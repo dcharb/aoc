@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -23,11 +24,17 @@ func main() {
 		"20204": do20204,
 		"20205": do20205,
 		"20206": do20206,
+		"20211": do20211,
+		"20212": do20212,
 	}
 
 	// Get input and run
 	lines := getLines(fmt.Sprintf("data/%s/%s.txt", year, test))
-	funcMap[fmt.Sprintf("%s%s", year, test)](lines)
+	f, ok := funcMap[fmt.Sprintf("%s%s", year, test)]
+	if !ok {
+		log.Fatal("invalid test")
+	}
+	f(lines)
 }
 
 func getLines(filename string) []string {
@@ -35,5 +42,18 @@ func getLines(filename string) []string {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return strings.Split(string(b), "\n")
+	s := strings.Split(string(b), "\n")
+	return s[:len(s)-1]
+}
+
+func toInts(nums []string) []int {
+	var ints []int
+	for _, num := range nums {
+		i, err := strconv.Atoi(num)
+		if err != nil {
+			log.Panic(err)
+		}
+		ints = append(ints, i)
+	}
+	return ints
 }
