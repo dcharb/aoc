@@ -1,12 +1,79 @@
-package aoc2020
+package main
 
 import (
 	"fmt"
+	"log"
 	"regexp"
 	"sort"
 	"strconv"
 	"strings"
 )
+
+func toInts(nums []string) []int {
+	var ints []int
+	for _, num := range nums {
+		i, err := strconv.Atoi(num)
+		if err != nil {
+			log.Panic(err)
+		}
+		ints = append(ints, i)
+	}
+	return ints
+}
+
+func do20201(lines []string) {
+	result, err := do1a(toInts(lines))
+	if err != nil {
+		log.Panic(err)
+	}
+	fmt.Println(result)
+
+	result, err = do1b(toInts(lines))
+	if err != nil {
+		log.Panic(err)
+	}
+	fmt.Println(result)
+}
+
+func do20202(lines []string) {
+	var policies []policy
+	for _, line := range lines {
+		policies = append(policies, parsePolicy(line))
+	}
+	fmt.Println(do2a(policies))
+
+	policies = nil
+	for _, line := range lines {
+		policies = append(policies, parsePolicy(line))
+	}
+	fmt.Println(do2b(policies))
+}
+
+func do20203(lines []string) {
+	isTree := parseHill(lines)
+	fmt.Println(do3a(isTree))
+
+	isTree = parseHill(lines)
+	fmt.Println(do3b(isTree))
+}
+
+func do20204(lines []string) {
+	passports := parsePassports(lines)
+	fmt.Println(do4a(passports))
+
+	passports = parsePassports(lines)
+	fmt.Println(do4b(passports))
+}
+
+func do20205(lines []string) {
+	fmt.Println(do5a(lines))
+	fmt.Println(do5b(lines))
+}
+
+func do20206(lines []string) {
+	fmt.Println(do6a(lines))
+	fmt.Println(do6b(lines))
+}
 
 func do1a(nums []int) (int, error) {
 	for _, a := range nums {
@@ -394,19 +461,4 @@ func parseBag(line string) bag {
 		}
 	}
 	return b
-}
-
-func do7a(lines []string) int {
-	var bags []bag
-	for _, line := range lines {
-		bags = append(bags, parseBag(line))
-	}
-	for _, bag := range bags {
-		hasrecursiveBag(bag)
-	}
-	return 0
-}
-
-func do7b(lines []string) int {
-	return 0
 }
