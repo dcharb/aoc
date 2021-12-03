@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"strconv"
 	"strings"
 )
@@ -43,17 +44,59 @@ func add(input []int) int {
 func do20212(lines []string) {
 	var hor int
 	var depth int
+	var aim int
 	for _, line := range lines {
 		f := strings.Fields(line)
 		x, _ := strconv.Atoi(f[1])
 		switch f[0] {
 		case "forward":
 			hor += x
+			depth += aim * x
 		case "down":
-			depth += x
+			aim += x
 		case "up":
-			depth -= x
+			aim -= x
 		}
 	}
 	fmt.Println(hor * depth)
+}
+
+func do20213(lines []string) {
+	var gammaString string
+	var epsString string
+	var gamma0 []int
+	var gamma1 []int
+	for _, line := range lines {
+		if gamma0 == nil {
+			gamma0 = make([]int, len(line))
+			gamma1 = make([]int, len(line))
+		}
+		for i, c := range line {
+			if c == '0' {
+				gamma0[i]++
+			} else {
+				gamma1[i]++
+			}
+		}
+	}
+	for i := range gamma0 {
+		if gamma0[i] > gamma1[i] {
+			gammaString += "0"
+			epsString += "1"
+		} else {
+			gammaString += "1"
+			epsString += "0"
+		}
+	}
+	gamma := bin2dec(gammaString)
+	eps := bin2dec(epsString)
+	fmt.Println(gamma * eps)
+}
+
+func bin2dec(bin string) int {
+	o, err := strconv.ParseInt(bin, 2, 64)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return int(o)
 }
