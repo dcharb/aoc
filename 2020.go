@@ -72,7 +72,7 @@ func do1a(nums []int) (int, error) {
 		}
 	}
 
-	return 0, fmt.Errorf("Not found")
+	return 0, fmt.Errorf("not found")
 }
 
 func do1b(nums []int) (int, error) {
@@ -86,7 +86,7 @@ func do1b(nums []int) (int, error) {
 		}
 	}
 
-	return 0, fmt.Errorf("Not found")
+	return 0, fmt.Errorf("not found")
 }
 
 type policy struct {
@@ -353,10 +353,6 @@ func do5b(lines []string) int {
 
 		older = id
 	}
-	return 0
-}
-
-func parseLine(line string) int {
 	return 0
 }
 

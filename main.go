@@ -28,6 +28,7 @@ func main() {
 		"20212": do20212,
 		"20213": do20213,
 		"20221": do20221,
+		"20222": do20222,
 	}
 
 	// Get input and run
@@ -45,7 +46,7 @@ func getLines(filename string) []string {
 		log.Fatal(err)
 	}
 	s := strings.Split(string(b), "\n")
-	return s[:len(s)-1]
+	return s
 }
 
 func toInts(nums []string) []int {
